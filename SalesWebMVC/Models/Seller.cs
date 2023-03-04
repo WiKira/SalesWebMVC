@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace SalesWebMVC.Models
@@ -11,6 +13,7 @@ namespace SalesWebMVC.Models
         public string Name { get; set; }
         public string Email { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
+        [BindProperty, DataType("Date")]
         public DateTime BirthDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public double BaseSalary { get; set; }
