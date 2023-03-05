@@ -84,8 +84,8 @@ namespace SalesWebMVC.Controllers
             {
                 return NotFound();
             }
-            var obj = _sellerService.FindById(id.Value);
 
+            var obj = _sellerService.FindById(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -93,33 +93,30 @@ namespace SalesWebMVC.Controllers
 
             List<Department> departments = _departmentService.FindAll();
             SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
-
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Seller obj)
+        public IActionResult Edit(int id, Seller seller)
         {
-            if (id != obj.Id)
+            if (id != seller.Id)
             {
                 return BadRequest();
             }
-
             try
             {
-                _sellerService.Update(obj);
+                _sellerService.Update(seller);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundException e)
+            catch (NotFoundException)
             {
                 return NotFound();
             }
-            catch (DbConcurrencyException e)
+            catch (DbConcurrencyException)
             {
                 return BadRequest();
             }
-
         }
     }
 }
